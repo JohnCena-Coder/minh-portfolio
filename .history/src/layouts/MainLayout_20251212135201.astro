@@ -1,0 +1,62 @@
+---
+// QUAN TRỌNG: Dòng này để nạp màu sắc vào trang web
+import '../base.css'; 
+
+import { Lock } from 'lucide-react';
+const { title = "Minh Portfolio" } = Astro.props;
+const pathname = new URL(Astro.request.url).pathname;
+---
+
+<html lang="vi">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>{title}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+  </head>
+  <body class="bg-white text-black font-sans antialiased">
+    
+    <header class="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-md border-b border-gray-100 h-20 transition-all duration-300">
+      <div class="max-w-7xl mx-auto px-6 h-full flex items-center justify-between relative">
+        
+        <a href="/" class="text-4xl font-serif font-bold tracking-tight hover:opacity-70 transition text-black no-underline">
+          Minh.
+        </a>
+
+        <nav class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 flex gap-10 text-xs sm:text-sm font-medium tracking-[0.2em] uppercase">
+          <a href="/" class={`transition-all duration-300 no-underline ${pathname === '/' || pathname.startsWith('/p/') ? 'text-black border-b border-black pb-1' : 'text-gray-400 hover:text-black'}`}>
+            Product
+          </a>
+          <a href="/info" class={`transition-all duration-300 no-underline ${pathname === '/info' ? 'text-black border-b border-black pb-1' : 'text-gray-400 hover:text-black'}`}>
+            Info
+          </a>
+        </nav>
+
+        <a href="/admin" class="opacity-10 hover:opacity-100 transition-opacity duration-500 p-2 text-black" title="Admin Login">
+          <Lock size={16} strokeWidth={1.5} />
+        </a>
+
+      </div>
+    </header>
+
+    <main class="pt-28 pb-12 px-4 sm:px-6 min-h-screen">
+      <div class="max-w-7xl mx-auto">
+        <slot />
+      </div>
+    </main>
+
+    <footer class="py-8 text-center text-xs text-gray-300 uppercase tracking-widest font-light">
+      © 2024 Minh Photography
+    </footer>
+
+  </body>
+</html>
+
+<style>
+  /* Cài đặt Font chữ */
+  .font-serif { font-family: 'Playfair Display', serif; }
+  body { font-family: 'Inter', sans-serif; }
+</style>

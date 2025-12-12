@@ -1,0 +1,36 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+import { supabase } from '../lib/supabase';
+import '../base.css'; // Nạp màu
+
+// Lấy dòng dữ liệu mới nhất (dù có nhiều dòng cũng không sợ lỗi)
+const { data: list } = await supabase
+  .from('info_page')
+  .select('*')
+  .order('id', { ascending: false })
+  .limit(1);
+
+const info = list && list.length > 0 ? list[0] : null;
+---
+
+<MainLayout title="Info | Minh.">
+  <div class="min-h-[80vh] flex items-center justify-center p-4 fade-in">
+    {info && info.image_url ? (
+        <img 
+            src={info.image_url} 
+            alt="Info Minh" 
+            class="max-w-full max-h-[85vh] object-contain shadow-lg rounded-sm"
+        />
+    ) : (
+        <div class="text-center text-gray-400">
+            <p>Chưa có thông tin.</p>
+            <p class="text-sm mt-2">Vui lòng vào Admin để upload ảnh Info.</p>
+        </div>
+    )}
+  </div>
+</MainLayout>
+
+<style>
+  .fade-in { animation: fadeIn 1.2s ease-out forwards; opacity: 0; }
+  @keyframes fadeIn { to { opacity: 1; } }
+</style>

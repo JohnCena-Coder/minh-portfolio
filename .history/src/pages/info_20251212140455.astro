@@ -1,0 +1,8 @@
+// Lấy dòng dữ liệu mới nhất (dù có nhiều dòng cũng không sợ lỗi)
+const { data: list } = await supabase
+  .from('info_page')
+  .select('*')
+  .order('id', { ascending: false })
+  .limit(1);
+
+const info = list && list.length > 0 ? list[0] : null;

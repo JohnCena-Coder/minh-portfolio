@@ -1,0 +1,55 @@
+---
+import { Lock } from 'lucide-react';
+const { title = "Minh Portfolio" } = Astro.props;
+const pathname = new URL(Astro.request.url).pathname;
+---
+
+<html lang="vi">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>{title}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+  </head>
+  <body class="bg-white text-black font-sans antialiased">
+    
+    <header class="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm border-b border-gray-100 h-16 sm:h-20">
+      <div class="max-w-7xl mx-auto px-4 h-full flex items-center justify-between relative">
+        
+        <a href="/" class="text-2xl sm:text-3xl font-serif font-bold tracking-tight hover:opacity-80 transition">
+          Minh.
+        </a>
+
+        <nav class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 flex gap-8 text-sm uppercase tracking-widest">
+          <a href="/" class={`hover:text-black transition ${pathname === '/' ? 'text-black font-bold border-b border-black pb-0.5' : 'text-gray-400'}`}>
+            Product
+          </a>
+          <a href="/info" class={`hover:text-black transition ${pathname === '/info' ? 'text-black font-bold border-b border-black pb-0.5' : 'text-gray-400'}`}>
+            Info
+          </a>
+        </nav>
+
+        <a href="/admin" class="opacity-[0.05] hover:opacity-100 transition duration-500 p-2" title="Admin Login">
+          <Lock size={16} />
+        </a>
+
+      </div>
+    </header>
+
+    <main class="pt-20 sm:pt-24 min-h-screen pb-12 px-4">
+      <div class="max-w-7xl mx-auto">
+        <slot />
+      </div>
+    </main>
+
+  </body>
+</html>
+
+<style>
+  /* Font chữ giống tạp chí */
+  .font-serif { font-family: 'Playfair Display', serif; }
+  body { font-family: 'Inter', sans-serif; }
+</style>
